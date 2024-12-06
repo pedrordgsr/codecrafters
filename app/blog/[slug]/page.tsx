@@ -90,7 +90,6 @@ export default function Blog({ params }) {
           {formatDate(post.metadata.publishedAt)}
           
         </p>
-        <p>Artigo por: {post.metadata.author} </p>
       </div>
       <article className="prose">
         <CustomMDX source={post.content} />
