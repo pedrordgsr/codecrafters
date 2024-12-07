@@ -15,22 +15,31 @@ export function BlogPosts() {
           }
           return 1
         })
-        .map((post) => (
-          <Link
-            key={post.slug}
-            className="flex flex-col space-y-1 mb-4"
-            href={`/blog/${post.slug}`}
-          >
-            <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
-                {formatDate(post.metadata.publishedAt, false)}
-              </p>
+        .map((post) => {
+          // Extraímos o dia e o mês (nome abreviado em português)
+          const date = new Date(post.metadata.publishedAt)
+          const day = date.toLocaleString('pt-BR', { day: '2-digit' })
+          const month = date.toLocaleString('pt-BR', { month: 'short' })
+
+          return (
+            <Link
+              key={post.slug}
+              className="flex items-center space-x-4 mb-4  hover:bg-neutral-200 hover:dark:bg-neutral-700 rounded-full	"
+              href={`/blog/${post.slug}`}
+            >
+              {/* Bolinha com o dia e o mês */}
+              <div className="flex flex-col items-center justify-center w-12 h-12 bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 rounded-full">
+                <span className="text-sm font-bold">{day}</span>
+                <span className="text-xs uppercase">{month}</span>
+              </div>
+
+              {/* Título do post */}
               <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
                 {post.metadata.title}
               </p>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          )
+        })}
     </div>
   )
 }
